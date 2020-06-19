@@ -8,6 +8,7 @@ For year = 1905, the output should be
 
 centuryFromYear(year) = 20;
 
+
 For year = 1700, the output should be
 
 centuryFromYear(year) = 17.
