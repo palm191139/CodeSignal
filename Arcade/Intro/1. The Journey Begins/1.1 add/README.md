@@ -9,7 +9,7 @@ add(param1, param2) = 3.
 
 ### Input/Output
 
-[execution time limit] 4 seconds (js)
+* [execution time limit] 4 seconds (js)
 
 * [input] integer param1
 
