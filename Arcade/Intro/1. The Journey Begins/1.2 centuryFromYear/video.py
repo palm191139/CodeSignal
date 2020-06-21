@@ -5,7 +5,7 @@ from numpy import array as c
 class mainScene(Scene):
     def construct(self):
         ######################### # intro
-        detail = ['- Intro' ,'- The Journey Begins / add']
+        detail = ['- Intro' ,'- The Journey Begins / centuryFromYear']
         detailShift = [[3.5 ,3.5],[3.45 , 3.05]]
 
         title = TextMobject('CodeSignal ')
@@ -37,7 +37,7 @@ class mainScene(Scene):
         headerP = TextMobject(r'Proposition')
         headerP.move_to(title.get_left() - headerP.get_left() + DOWN + 0.3*RIGHT)
 
-        detailP = TextMobject(r'\begin{flushleft} Write a function that returns the sum of two numbers. \end{flushleft}')
+        detailP = TextMobject(r'\begin{flushleft} Given a year, return the century it is in.The first century spans from \\ the year 1 up to and including the year 100, the second - from the year \\ 101 up to and including the year 200, etc. \end{flushleft}')
         detailP.scale(0.8)
         detailP.move_to(title.get_left() - c([(detailP.get_left()[0] - detailP.get_right()[0])/2  ,detailP.get_top()[1] ,0]) + DOWN*1.5 + RIGHT*0.5)
 
@@ -51,7 +51,7 @@ class mainScene(Scene):
         headerE = TextMobject(r'\begin{flushleft} Example \end{flushleft}')
         headerE.move_to(title.get_left() - headerE.get_left() + DOWN + 0.3*RIGHT)
 
-        detailE = TextMobject(r'\begin{flushleft} - For param1 = 1 and param2 = 2 \\ \hspace{0.5cm} the output should be add(param1, param2) = 3. \end{flushleft}')
+        detailE = TextMobject(r'\begin{flushleft}- For year = 1905, the output should be\\\hspace{0.5cm}centuryFromYear(year) = 20;\\- For year = 1700, the output should be\\\hspace{0.5cm}centuryFromYear(year) = 17.\\ \end{flushleft}')
         detailE.scale(0.8)
         detailE.move_to(title.get_left() - c([(detailE.get_left()[0] - detailE.get_right()[0])/2 ,detailE.get_top()[1] ,0]) + DOWN*1.5 + RIGHT*0.5)
 
@@ -66,10 +66,11 @@ class mainScene(Scene):
         headerIO = TextMobject(r'\begin{flushleft} Input/Output \end{flushleft}')
         headerIO.move_to(title.get_left() - headerIO.get_left() + DOWN + 0.3*RIGHT)
 
-        detailIO = TextMobject(r'\begin{flushleft} - $[$execution time limit$]$ 4 seconds (py3) \\\hspace{0.005cm}- $[$input$]$ integer param1 \\ \hspace{0.5cm} Guaranteed constraints: \\ \hspace{0.7cm} -1000 $\leq$ param1 $\leq$ 1000.\\\hspace{0.005cm}- $[$input$]$ integer param2 \\ \hspace{0.5cm} Guaranteed constraints: \\ \hspace{0.7cm} -1000 $\leq$ param1 $\leq$ 1000. \\\hspace{0.005cm}- $[$output$]$ integer \\ \hspace{5mm}The sum of the two inputs. \end{flushleft}')
+        detailIO = TextMobject(r'\begin{flushleft} - $[$execution time limit$]$ 4 seconds (py3) \\\hspace{0.005cm}- $[$input$]$ integer year\\\hspace{0.5cm}A positive integer, designating the year.\\\hspace{0.5cm}Guaranteed constraints:\\\hspace{1cm}1 $\leq$ year $\leq$ 2005.\\\hspace{0.005cm}- $[$output$]$ integer\\\hspace{0.5cm}The number of the century the year is in. \end{flushleft}')
         detailIO.scale(0.8)
         detailIO.move_to(title.get_left() - c([(detailIO.get_left()[0] - detailIO.get_right()[0])/2 ,detailIO.get_top()[1] ,0]) + DOWN*1.5 + RIGHT*0.5)
 
+ 
         ###
         self.play(Write(headerIO))
         self.play(Write(detailIO))
@@ -77,24 +78,35 @@ class mainScene(Scene):
 
         self.play(FadeOut(headerIO) ,FadeOut(detailIO))
         ######################### # Solve
-        headerS = TextMobject(r'\begin{flushleft} Solve \end{flushleft}')
+        headerS = TextMobject(r'\begin{flushleft} Solve 1 \end{flushleft}')
         headerS.move_to(title.get_left() - headerS.get_left() + DOWN + 0.3*RIGHT)
 
-        detailS1 = TextMobject(r'Input : ' ,r' param1' ,r' , ' ,r'param2')
-        detailS2 = TextMobject(r'Output : ' ,r'param1' ,r' + ' ,r'param2').move_to(DOWN)
+        detailS1 = TextMobject(r'Input : 1907').move_to(UP*1.5 + LEFT * 3) 
+        detailS12 = TextMobject(r'Output : 1907 // 100 + if 07 $\neq$ 00 then 1 else 0')
+        detailS12.move_to(DOWN*1 + detailS1.get_left() - detailS12.get_left())
+        
+        detailS2 = TextMobject(r'Input : 1700').move_to(DOWN*0.5 + LEFT * 3)
+        detailS22 = TextMobject(r'Output : 1700 // 100 + if 00 $\neq$ 00 then 1 else 0')
+        detailS22.move_to(DOWN*1 + detailS2.get_left() - detailS22.get_left())
         # detailS.scale(0.8)
         # detailS.move_to(title.get_left() - c([(detailS.get_left()[0] - detailS.get_right()[0])/2  ,detailS.get_top()[1] ,0]) + DOWN*1.5 + RIGHT*0.5)
-
         ###
         self.play(Write(headerS))
         self.play(Write(detailS1))
-        self.play(Write(detailS2[0]))
-        self.play(ReplacementTransform(detailS1[1].copy(),detailS2[1]))
-        self.play(Write(detailS2[2]))
-        self.play(ReplacementTransform(detailS1[3].copy(),detailS2[3]))
+        self.play(Write(detailS12[0][:7]))
+        self.play(ReplacementTransform(detailS1[0][6:].copy(), detailS12[0][7:11]))
+
+
+        self.play(ReplacementTransform(detailS12,detailS12)) 
+        self.play(ShowCreation(Line(c([-6.5,0,0]), c([6.5,0,0]))))
+        self.play(Write(detailS2))
+        self.play(Write(detailS22))
+        
+        # self.play(Write(detailS2[2]))
+        # self.play(ReplacementTransform(detailS1[3].copy(),detailS2[3]))
         self.wait(0.5)
 
-        self.play(FadeOut(headerS) ,FadeOut(detailS1), FadeOut(detailS2))
+        # self.play(FadeOut(headerS) ,FadeOut(detailS1), FadeOut(detailS2))
         ######################### # Coding
         headerC = TextMobject(r'Coding')
         headerC.move_to(title.get_left() - headerC.get_left() + DOWN + 0.3*RIGHT)
