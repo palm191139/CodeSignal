@@ -11,4 +11,10 @@ def checkPalindrome(s):
     return True
 
 def checkPalindrome(s):
+    for i in range(len(s)):
+        if s[i] != s[-1 - i]:
+            return False
+    return True
+
+def checkPalindrome(s):
     return s == s[::-1]
